@@ -1,0 +1,7 @@
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: "jdbc:oracle:thin:@10.238.220.238:1521:IOL"
+    username: mes_iol_dev
+    password: mes_iol_dev
