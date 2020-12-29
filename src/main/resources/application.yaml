@@ -1,7 +1,16 @@
+server:
+  port: 8080
 
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: "jdbc:oracle:thin:@10.238.220.238:1521:IOL"
-    username: mes_iol_dev
-    password: mes_iol_dev
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/donate?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT"
+    username: root
+    password: 123456
+
+  thymeleaf:
+    enabled: true
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML
+    cache: false
