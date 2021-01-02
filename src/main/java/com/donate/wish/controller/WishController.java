@@ -4,16 +4,14 @@ package com.donate.wish.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.donate.common.RestfulApiResponse;
 import com.donate.controller.BaseController;
+import com.donate.sys.entity.User;
 import com.donate.wish.entity.Wish;
 import com.donate.wish.service.IWishService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -44,10 +42,17 @@ public class WishController extends BaseController {
     }
 
     @GetMapping("make")
-    public String makeWish(){
+    public String makeWish(HttpServletRequest request, Model model){
+        model.addAttribute("user", getLogonUser(request));
         return "make_wish";
     }
 
+    @ResponseBody
+    @PostMapping("/create")
+    public Object save(HttpServletRequest request, Model model, Wish wish) {
+        wishService.save(wish);
+        return RestfulApiResponse.buildSuccessResponse(null);
+    }
     @PostMapping("/upload")
     public Object upload(){
 

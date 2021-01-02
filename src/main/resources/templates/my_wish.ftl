@@ -18,7 +18,7 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <div>
-                <button type="button" class="layui-btn">新建愿望</button>
+                <button type="button" class="layui-btn" id="btn">新建愿望</button>
             </div>
         </div>
     </div>
@@ -28,9 +28,12 @@
 
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use(['element','jquery'], function(){
         var element = layui.element;
-
+        $=layui.jquery;
+        $(document).on('click','#btn',function(){
+            window.location.href = "/wish/make";
+        });
     });
 </script>
 </body>

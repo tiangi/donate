@@ -18,6 +18,7 @@
         <div style="padding: 15px;">
             <div style="font-size: 20px;text-align: center;padding: 20px 20px;">许愿</div>
             <form class="layui-form"  action="" lay-filter="register">
+                <input type="hidden" name="userId" value="${userId!}">
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物名称</label>
                     <div class="layui-input-block">
@@ -25,41 +26,38 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">真实姓名</label>
+                    <label class="layui-form-label">礼物价格</label>
                     <div class="layui-input-block">
-                        <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="真实姓名" class="layui-input">
+                        <input type="text" name="giftPrice" lay-verify="required" autocomplete="off" placeholder="礼物价格" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">生日</label>
+                    <label class="layui-form-label">礼物描述</label>
                     <div class="layui-input-block">
-                        <input type="text" name="birthday" id="date1" autocomplete="off" lay-verify="required"  placeholder="选择生日" class="layui-input" readonly>
+                        <input type="text" name="giftDesc"  autocomplete="off" lay-verify="required"  placeholder="礼物描述" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">密码</label>
+                    <label class="layui-form-label">礼物链接</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password" lay-verify="required"  placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="text" name="giftUrl"  autocomplete="off" lay-verify="required"  placeholder="礼物链接" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">重复密码</label>
+                    <label class="layui-form-label">索要原因</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password1" lay-verify="required"  placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                        <textarea placeholder="索要原因" class="layui-textarea" lay-verify="required" name="reason"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
+                    <label class="layui-form-label">礼物类型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="M" title="男" checked="">
-                        <input type="radio" name="sex" value="F" title="女">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">电子邮箱</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="email, required"  autocomplete="off" class="layui-input">
+                        <input type="radio" name="category" value="1" title="生日" checked="">
+                        <input type="radio" name="category" value="2" title="节日">
+                        <input type="radio" name="category" value="3" title="纪念日">
+                        <input type="radio" name="category" value="4" title="重要的人">
+                        <input type="radio" name="category" value="5" title="其他">
                     </div>
                 </div>
 
@@ -106,20 +104,20 @@
         //监听提交
         form.on('submit(fsubmit)', function(data){
             $.ajax({
-                url : '/sys/user/create',
+                url : '/wish/create',
                 type: "post",
                 data : data.field,
                 dataType : "json",
                 success : function (o) {
                     if (o.status == 'success') {
-                        layer.msg('注册成功。', {icon: 1});
+                        layer.msg('索要成功。', {icon: 1});
                         window.setTimeout(function () {
-                            window.location.href = "/index";
+                            window.location.href = "/wish/mine";
                         }, 3000);
                     }
                 },
                 error: function (o) {
-                    layer.msg('注册失败，请稍候重试。', {icon: 2});
+                    layer.msg('索要失败，请稍候重试。', {icon: 2});
                 }
             });
             return false;
