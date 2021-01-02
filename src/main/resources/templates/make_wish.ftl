@@ -60,6 +60,7 @@
                         <input type="radio" name="category" value="5" title="其他">
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="fsubmit">注册</button>
