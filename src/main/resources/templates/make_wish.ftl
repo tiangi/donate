@@ -22,13 +22,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftName" lay-verify="required" autocomplete="off" placeholder="礼物名称" class="layui-input">
+                        <input type="text" name="giftName" lay-verify="title" autocomplete="off" placeholder="礼物名称" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物价格</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftPrice" lay-verify="required" autocomplete="off" placeholder="礼物价格" class="layui-input">
+                        <input type="text" name="giftPrice" lay-verify="price" autocomplete="off" placeholder="礼物价格" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -100,7 +100,22 @@
         laydate.render({
             elem: '#date1'
         });
-
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '礼物名称至少得2个字符';
+                }
+                if(value.length > 50){
+                    return '礼物名称不能超过50个字符';
+                }
+            }
+            ,price: function(value){
+                if(!/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(value)){
+                    return '礼物价格错误';
+                }
+            }
+        });
         //监听提交
         form.on('submit(fsubmit)', function(data){
             $.ajax({
