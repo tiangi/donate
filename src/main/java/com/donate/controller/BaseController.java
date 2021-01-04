@@ -3,6 +3,8 @@ package com.donate.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.donate.sys.entity.User;
 import com.donate.sys.service.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020-12-30 15:16
  */
 public class BaseController {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     protected IUserService userService;

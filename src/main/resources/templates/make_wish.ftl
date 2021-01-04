@@ -6,6 +6,13 @@
     <script src="/layui-v2.5.7/layui/layui.js"></script>
     <script src="/jquery-1.7.2.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.7/layui/css/layui.css" media="all">
+    <style>
+        .layui-upload-img {
+            width: 92px;
+            height: 92px;
+            margin: 0 10px 10px 0;
+        }
+    </style>
 </head>
 
 
@@ -19,6 +26,7 @@
             <div style="font-size: 20px;text-align: center;padding: 20px 20px;">许愿</div>
             <form class="layui-form"  action="" lay-filter="register">
                 <input type="hidden" name="userId" value="${userId!}">
+                <input type="hidden" id="giftPicture" name="giftPicture" value="">
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物名称</label>
                     <div class="layui-input-block">
@@ -60,10 +68,16 @@
                         <input type="radio" name="category" value="5" title="其他">
                     </div>
                 </div>
-
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test1">上传图片</button><input class="layui-upload-file" type="file" accept="" name="file">
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="fsubmit">注册</button>
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="fsubmit">提交</button>
                     </div>
                 </div>
             </form>
@@ -85,11 +99,12 @@
 
 </script>
 <script>
-    layui.use(['form', 'layedit', 'laydate','element'], function(){
+    layui.use(['form', 'layedit', 'laydate','element','upload'], function(){
         var form = layui.form,
             layer = layui.layer,
             layedit = layui.layedit,
             laydate = layui.laydate,
+            upload = layui.upload,
             element = layui.element;
 
         //日期
@@ -100,10 +115,21 @@
         laydate.render({
             elem: '#date1'
         });
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/file/upload' //上传接口
+            ,done: function(res){
+                $('#demo1').attr('src', res.responseBody);
+                $("#giftPicture").val(res.responseBody);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
         //自定义验证规则
         form.verify({
             title: function(value){
-                if(value.length < 5){
+                if(value.length < 2){
                     return '礼物名称至少得2个字符';
                 }
                 if(value.length > 50){
