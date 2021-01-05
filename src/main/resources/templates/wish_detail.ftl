@@ -25,7 +25,7 @@
         <div style="padding: 15px;">
             <div style="font-size: 20px;text-align: center;padding: 20px 20px;">许愿详情</div>
             <form class="layui-form"  action="" lay-filter="register">
-                <input type="hidden" name="userId" value="${userId!}">
+                <input type="hidden" name="wishId" value="${wish.id!}">
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物名称</label>
                     <div class="layui-input-block">
@@ -74,8 +74,30 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">可捐赠金额</label>
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="fsubmit">提交</button>
+                        <input type="text" id="remainAmout" lay-verify="price" value="1280" autocomplete="off" placeholder="可捐赠金额" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">捐赠金额</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="donatePrice" id="donatePrice" lay-verify="price" autocomplete="off" placeholder="捐赠金额" class="layui-input" >
+                    </div>
+                    <fieldset class="layui-elem-field site-demo-button">
+                        <legend>捐赠金额</legend>
+                        <div class="layui-btn-group">
+                            <button type="button" class="layui-btn" id="btn1">全部</button>
+                            <button type="button" class="layui-btn" id="btn2">1/2</button>
+                            <button type="button" class="layui-btn" id="btn3">1/5</button>
+                            <button type="button" class="layui-btn" id="btn4">1/10</button>
+                            <button type="button" class="layui-btn" id="btn5">1/20</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="fsubmit">提交捐赠</button>
                     </div>
                 </div>
             </form>
@@ -100,29 +122,22 @@
     layui.use(['form', 'layedit', 'laydate','element','upload'], function(){
         var form = layui.form,
             layer = layui.layer,
-            layedit = layui.layedit,
-            laydate = layui.laydate,
-            upload = layui.upload,
             element = layui.element;
-
-        //日期
-        laydate.render({
-            elem: '#date'
+        $=layui.jquery;
+        $(document).on('click','#btn1',function(){
+            $("#donatePrice").val($("#remainAmout").val());
         });
-
-        laydate.render({
-            elem: '#date1'
+        $(document).on('click','#btn2',function(){
+            $("#donatePrice").val(Number($("#remainAmout").val())/2);
         });
-        var uploadInst = upload.render({
-            elem: '#test1' //绑定元素
-            ,url: '/file/upload' //上传接口
-            ,done: function(res){
-                $('#demo1').attr('src', res.responseBody);
-                $("#giftPicture").val(res.responseBody);
-            }
-            ,error: function(){
-                //请求异常回调
-            }
+        $(document).on('click','#btn3',function(){
+            $("#donatePrice").val(Number($("#remainAmout").val())/5);
+        });
+        $(document).on('click','#btn4',function(){
+            $("#donatePrice").val(Number($("#remainAmout").val())/10);
+        });
+        $(document).on('click','#btn5',function(){
+            $("#donatePrice").val(Number($("#remainAmout").val())/20);
         });
         //自定义验证规则
         form.verify({

@@ -6,6 +6,12 @@
     <script src="/layui-v2.5.7/layui/layui.js"></script>
     <script src="/jquery-1.7.2.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.7/layui/css/layui.css" media="all">
+    <style>
+        .layui-upload-img {
+            width: 48px;
+            height: 48px;
+        }
+    </style>
 </head>
 
 

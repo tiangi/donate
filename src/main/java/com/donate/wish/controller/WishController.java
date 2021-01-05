@@ -62,6 +62,9 @@ public class WishController extends BaseController {
         model.addAttribute("wish", wish);
         return "wish_detail";
     }
-
-
+    @ResponseBody
+    @GetMapping("/donate")
+    public Object donate(HttpServletRequest request, Model model, String id) {
+        return RestfulApiResponse.buildSuccessResponse(null);
+    }
 }
