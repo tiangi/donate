@@ -21,6 +21,36 @@
                 <button type="button" class="layui-btn" id="btn">新建愿望</button>
             </div>
         </div>
+        <table class="layui-table" lay-even="" lay-skin="row">
+            <colgroup>
+                <col width="150">
+                <col width="150">
+                <col width="200">
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>礼物名称</th>
+                <th>礼物价格</th>
+                <th>礼物描述</th>
+                <th>礼物类型</th>
+                <th>礼物图片</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#list wishes as item>
+                <tr>
+                    <td>${item.giftName}</td>
+                    <td>${item.giftPrice}</td>
+                    <td>${item.giftDesc}</td>
+                    <td>${item.category}</td>
+                    <td><img class="layui-upload-img" src="${item.giftPicture}"></td>
+                </tr>
+            </#list>
+
+            </tbody>
+        </table>
     </div>
 
 <#include "foot.ftl">

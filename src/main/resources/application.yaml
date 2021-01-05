@@ -1,6 +1,10 @@
 server:
   port: 8080
-
+logging:
+  level:
+    com.donate: debug
+  file:
+    name: donate.log
 spring:
   file:
     path: c:/upload/
