@@ -35,7 +35,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物价格</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftPrice" value="${wish.giftPrice}" lay-verify="price" autocomplete="off" placeholder="礼物价格" class="layui-input" readonly="readonly">
+                        <input type="text" name="giftPrice" value="${wish.giftPrice?string('0.##')}" lay-verify="price" autocomplete="off" placeholder="礼物价格" class="layui-input" readonly="readonly">
                     </div>
                 </div>
                 <div class="layui-form-item">

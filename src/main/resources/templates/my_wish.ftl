@@ -48,7 +48,10 @@
                     <td>${item.giftDesc}</td>
                     <td>${item.category}</td>
                     <td><img class="layui-upload-img" src="${item.giftPicture!}"></td>
-                    <td><a href="/wish/detail?id=${item.id?c}" target="_blank">查看</a> </td>
+                    <td>
+                        <a href="/wish/make?id=${item.id?c}" target="_blank">编辑</a>
+                        <a href="/wish/detail?id=${item.id?c}" target="_blank">查看</a>
+                    </td>
                 </tr>
             </#list>
 

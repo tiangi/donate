@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +45,10 @@ public class WishController extends BaseController {
     }
 
     @GetMapping("/make")
-    public String makeWish(HttpServletRequest request, Model model) {
+    public String makeWish(HttpServletRequest request, Model model, Long id) {
+        if (id != null) {
+            model.addAttribute("wish", wishService.getById(id));
+        }
         model.addAttribute("user", getLogonUser(request));
         return "make_wish";
     }
@@ -51,7 +56,8 @@ public class WishController extends BaseController {
     @ResponseBody
     @PostMapping("/create")
     public Object save(HttpServletRequest request, Model model, Wish wish) {
-        wishService.save(wish);
+        wish.setCreateTime(LocalDateTime.now());
+        wishService.saveOrUpdate(wish);
         return RestfulApiResponse.buildSuccessResponse(null);
     }
 
