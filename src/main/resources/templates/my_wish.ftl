@@ -28,6 +28,7 @@
                 <col width="200">
                 <col width="150">
                 <col>
+                <col width="150">
             </colgroup>
             <thead>
             <tr>
@@ -36,6 +37,7 @@
                 <th>礼物描述</th>
                 <th>礼物类型</th>
                 <th>礼物图片</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -45,7 +47,8 @@
                     <td>${item.giftPrice}</td>
                     <td>${item.giftDesc}</td>
                     <td>${item.category}</td>
-                    <td><img class="layui-upload-img" src="${item.giftPicture}"></td>
+                    <td><img class="layui-upload-img" src="${item.giftPicture!}"></td>
+                    <td><a href="/wish/detail?id=${item.id?c}" target="_blank">查看</a> </td>
                 </tr>
             </#list>
 

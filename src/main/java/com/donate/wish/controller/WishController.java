@@ -55,5 +55,13 @@ public class WishController extends BaseController {
         return RestfulApiResponse.buildSuccessResponse(null);
     }
 
+    @GetMapping("/detail")
+    public String getWish(HttpServletRequest request, Model model, String id) {
+        model.addAttribute("user", getLogonUser(request));
+        Wish wish = wishService.getById(id);
+        model.addAttribute("wish", wish);
+        return "wish_detail";
+    }
+
 
 }
