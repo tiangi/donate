@@ -54,7 +54,7 @@
                     <tr style="height: 40px;"><td align="center" style="font-weight: bold;">捐赠记录</td></tr>
                 </table>
                 <div>已捐赠：￥${sum}，剩余：￥${left}</div>
-                <div class="layui-progress" lay-showpercent="true">
+                <div class="layui-progress layui-progress-big" lay-showpercent="true">
                     <div class="layui-progress-bar" lay-percent="${progress}%"></div>
                 </div>
                 <table class="layui-table">
