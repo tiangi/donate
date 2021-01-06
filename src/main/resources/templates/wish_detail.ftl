@@ -29,32 +29,32 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftName" value="${wish.giftName!}" lay-verify="title" autocomplete="off" placeholder="礼物名称" class="layui-input" readonly="readonly">
+                        <input type="text" name="giftName" value="${wish.giftName!}" autocomplete="off" placeholder="礼物名称" class="layui-input" readonly="readonly">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物价格</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftPrice" value="${wish.giftPrice?string('0.##')}" lay-verify="price" autocomplete="off" placeholder="礼物价格" class="layui-input" readonly="readonly">
+                        <input type="text" name="giftPrice" value="${wish.giftPrice?string('0.##')}" autocomplete="off" placeholder="礼物价格" class="layui-input" readonly="readonly">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物描述</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftDesc" value="${wish.giftDesc!}" autocomplete="off" lay-verify="required"  placeholder="礼物描述" class="layui-input" readonly="readonly">
+                        <input type="text" name="giftDesc" value="${wish.giftDesc!}" autocomplete="off" placeholder="礼物描述" class="layui-input" readonly="readonly">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">礼物链接</label>
                     <div class="layui-input-block">
-                        <input type="text" name="giftUrl" value="${wish.giftUrl}" autocomplete="off" lay-verify="required"  placeholder="礼物链接" class="layui-input" readonly="readonly">
+                        <input type="text" name="giftUrl" value="${wish.giftUrl}" autocomplete="off"  placeholder="礼物链接" class="layui-input" readonly="readonly">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">索要原因</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="索要原因" class="layui-textarea" lay-verify="required" name="reason" disabled="disabled">${wish.reason!}</textarea>
+                        <textarea placeholder="索要原因" class="layui-textarea" name="reason" disabled="disabled">${wish.reason!}</textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -76,7 +76,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">可捐赠金额</label>
                     <div class="layui-input-block">
-                        <input type="text" id="remainAmout" lay-verify="price" value="1280" autocomplete="off" placeholder="可捐赠金额" class="layui-input" readonly="readonly">
+                        <input type="text" id="remainAmount" lay-verify="price" value="1280" autocomplete="off" placeholder="可捐赠金额" class="layui-input" readonly="readonly">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -94,6 +94,22 @@
                             <button type="button" class="layui-btn" id="btn5">1/20</button>
                         </div>
                     </fieldset>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">我和许愿人的关系</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="relation" value="1" title="朋友" checked="checked">
+                        <input type="radio" name="relation" value="2" title="家人" >
+                        <input type="radio" name="relation" value="3" title="重要的人" >
+                        <input type="radio" name="relation" value="4" title="素人" >
+                        <input type="radio" name="relation" value="5" title="其他" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">留言</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="留言" class="layui-textarea" name="donateMessage"></textarea>
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
@@ -125,19 +141,19 @@
             element = layui.element;
         $=layui.jquery;
         $(document).on('click','#btn1',function(){
-            $("#donatePrice").val($("#remainAmout").val());
+            $("#donatePrice").val($("#remainAmount").val());
         });
         $(document).on('click','#btn2',function(){
-            $("#donatePrice").val(Number($("#remainAmout").val())/2);
+            $("#donatePrice").val(Number($("#remainAmount").val())/2);
         });
         $(document).on('click','#btn3',function(){
-            $("#donatePrice").val(Number($("#remainAmout").val())/5);
+            $("#donatePrice").val(Number($("#remainAmount").val())/5);
         });
         $(document).on('click','#btn4',function(){
-            $("#donatePrice").val(Number($("#remainAmout").val())/10);
+            $("#donatePrice").val(Number($("#remainAmount").val())/10);
         });
         $(document).on('click','#btn5',function(){
-            $("#donatePrice").val(Number($("#remainAmout").val())/20);
+            $("#donatePrice").val(Number($("#remainAmount").val())/20);
         });
         //自定义验证规则
         form.verify({
@@ -158,20 +174,20 @@
         //监听提交
         form.on('submit(fsubmit)', function(data){
             $.ajax({
-                url : '/wish/create',
+                url : '/wish/donate',
                 type: "post",
                 data : data.field,
                 dataType : "json",
                 success : function (o) {
                     if (o.status == 'success') {
-                        layer.msg('索要成功。', {icon: 1});
+                        layer.msg('捐赠成功。', {icon: 1});
                         window.setTimeout(function () {
                             window.location.href = "/wish/mine";
                         }, 3000);
                     }
                 },
                 error: function (o) {
-                    layer.msg('索要失败，请稍候重试。', {icon: 2});
+                    layer.msg('捐赠失败，请稍候重试。', {icon: 2});
                 }
             });
             return false;

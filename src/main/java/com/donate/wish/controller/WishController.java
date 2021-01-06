@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -41,6 +43,13 @@ public class WishController extends BaseController {
         List<Wish> list = wishService.list(new QueryWrapper<>(wish).orderByDesc("create_time"));
         model.addAttribute("wishes", list);
         model.addAttribute("user", getLogonUser(request));
+        Map<String, String> category_map = new HashMap<>();
+        category_map.put("1", "生日");
+        category_map.put("2", "节日");
+        category_map.put("3", "纪念日");
+        category_map.put("4", "重要的人");
+        category_map.put("5", "其他");
+        model.addAttribute("categoryMap", category_map);
         return "my_wish";
     }
 
@@ -69,7 +78,7 @@ public class WishController extends BaseController {
         return "wish_detail";
     }
     @ResponseBody
-    @GetMapping("/donate")
+    @PostMapping("/donate")
     public Object donate(HttpServletRequest request, Model model, String id) {
         return RestfulApiResponse.buildSuccessResponse(null);
     }

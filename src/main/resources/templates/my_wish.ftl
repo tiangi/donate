@@ -52,11 +52,11 @@
                     <td>${item.giftName}</td>
                     <td>${item.giftPrice}</td>
                     <td>${item.giftDesc}</td>
-                    <td>${item.category}</td>
+                    <td>${categoryMap[item.category]!}</td>
                     <td><img class="layui-upload-img" src="${item.giftPicture!}"></td>
                     <td>
                         <a href="/wish/make?id=${item.id?c}" target="_blank">编辑</a>
-                        <a href="/wish/detail?id=${item.id?c}" target="_blank">查看</a>
+                        <a href="/wish/detail?id=${item.id?c}" target="_blank">捐赠</a>
                     </td>
                 </tr>
             </#list>
