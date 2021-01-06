@@ -6,6 +6,8 @@ import com.donate.wish.service.IDonateRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DonateRecordServiceImpl extends ServiceImpl<DonateRecordMapper, DonateRecord> implements IDonateRecordService {
 
+    @Override
+    public BigDecimal getWishAmountSum(Long wishId) {
+        return getBaseMapper().queryDonateAmountSum(wishId);
+    }
 }

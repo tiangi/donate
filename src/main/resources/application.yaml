@@ -3,6 +3,7 @@ server:
 logging:
   level:
     com.donate: debug
+#    org.springframework: debug
   file:
     name: donate.log
 spring:
@@ -28,6 +29,7 @@ spring:
     request-context-attribute: request
     suffix: .ftl
     template-loader-path: classpath:/templates/
+
 
 #  thymeleaf:
 #    enabled: true

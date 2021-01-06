@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="/layui-v2.5.7/layui/layui.js"></script>
-    <script src="/jquery-1.7.2.min.js"></script>
+    <script src="/jquery.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.7/layui/css/layui.css" media="all">
     <style>
         .layui-upload-img {
@@ -56,7 +56,7 @@
                     <td><img class="layui-upload-img" src="${item.giftPicture!}"></td>
                     <td>
                         <a href="/wish/make?id=${item.id?c}" target="_blank">编辑</a>
-                        <a href="/wish/detail?id=${item.id?c}" target="_blank">捐赠</a>
+                        <a href="/wish/detail?id=${item.id?c}" target="_blank">详情</a>
                     </td>
                 </tr>
             </#list>

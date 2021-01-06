@@ -31,13 +31,17 @@ CREATE TABLE `t_wish`
   DEFAULT CHARSET = utf8;
 
 
-CREATE TABLE `donate`.`t_donate_record`
+CREATE TABLE `t_donate_record`
 (
-    `id`           bigint NOT NULL,
-    `wish_id`      bigint,
-    `relationship` varchar(255) COMMENT '与许愿人关系',
-    `name`         varchar(255) COMMENT '捐赠者姓名',
-    `amount`       double COMMENT '金额',
-    `create_time`  datetime,
-    PRIMARY KEY (`id`)
-);
+    `id`           BIGINT(20)     NOT NULL,
+    `wish_id`      BIGINT(20)     NULL DEFAULT NULL,
+    `relationship` VARCHAR(255)   NULL DEFAULT NULL COMMENT '与许愿人关系' COLLATE 'utf8_general_ci',
+    `name`         VARCHAR(255)   NULL DEFAULT NULL COMMENT '捐赠者姓名' COLLATE 'utf8_general_ci',
+    `amount`       DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '金额',
+    `create_time`  DATETIME       NULL DEFAULT NULL,
+    `message`      VARCHAR(300)   NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+    PRIMARY KEY (`id`) USING BTREE
+)
+    COLLATE = 'utf8_general_ci'
+    ENGINE = InnoDB
+;

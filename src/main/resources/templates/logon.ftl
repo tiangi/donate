@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="/layui-v2.5.7/layui/layui.js"></script>
-    <script src="/jquery-1.7.2.min.js"></script>
+    <script src="/jquery.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.7/layui/css/layui.css" media="all">
 </head>
 

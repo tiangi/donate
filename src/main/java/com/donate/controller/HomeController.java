@@ -33,7 +33,7 @@ public class HomeController extends BaseController {
     private IWishService wishService;
 
     @GetMapping("/index")
-    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String home(HttpServletRequest request, Model model) {
         model.addAttribute("user", getLogonUser(request));
 
         QueryWrapper wrapper =new QueryWrapper(new Wish());
@@ -69,8 +69,8 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().removeAttribute("userID");
-        return "index";
+    public String logout(HttpServletRequest request, Model model){
+        request.getSession().removeAttribute("userId");
+        return home(request, model);
     }
 }

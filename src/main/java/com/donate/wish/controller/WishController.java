@@ -4,6 +4,7 @@ package com.donate.wish.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.donate.common.RestfulApiResponse;
 import com.donate.controller.BaseController;
+import com.donate.sys.entity.User;
 import com.donate.wish.entity.DonateRecord;
 import com.donate.wish.entity.Wish;
 import com.donate.wish.service.IDonateRecordService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,7 +78,8 @@ public class WishController extends BaseController {
 
     @GetMapping("/detail")
     public String getWish(HttpServletRequest request, Model model, Long id) {
-        model.addAttribute("user", getLogonUser(request));
+        User user = getLogonUser(request);
+        model.addAttribute("user", user);
         Wish wish = wishService.getById(id);
         model.addAttribute("wish", wish);
 
@@ -87,20 +90,36 @@ public class WishController extends BaseController {
         List<DonateRecord> records =donateRecordService.list(wrapper);
         model.addAttribute("records", records);
 
-        Map<String, String> category_map = new HashMap<>();
-        category_map.put("1", "生日");
-        category_map.put("2", "节日");
-        category_map.put("3", "纪念日");
-        category_map.put("4", "重要的人");
-        category_map.put("5", "其他");
-        model.addAttribute("categoryMap", category_map);
+        Map<String, String> categoryMap = new HashMap<>();
+        categoryMap.put("1", "生日");
+        categoryMap.put("2", "节日");
+        categoryMap.put("3", "纪念日");
+        categoryMap.put("4", "重要的人");
+        categoryMap.put("5", "其他");
+        model.addAttribute("categoryMap", categoryMap);
+
+        Map<String, String> relationMap = new HashMap<>();
+        relationMap.put("1", "朋友");
+        relationMap.put("2", "家人");
+        relationMap.put("3", "重要的人");
+        relationMap.put("4", "素人");
+        relationMap.put("5", "其他");
+        model.addAttribute("relationMap", relationMap);
+
+        //判断是否仍然需要捐赠
+        BigDecimal sum = donateRecordService.getWishAmountSum(id);
+        if (sum == null) {
+            sum = BigDecimal.ZERO;
+        }
+        if (wish.getGiftPrice().subtract(sum).doubleValue() <=0 || (user!=null && user.getUserId().equals(wish.getUserId()))) {
+            model.addAttribute("showDonateBut", false);
+        } else {
+            model.addAttribute("showDonateBut", true);
+        }
+        model.addAttribute("left", wish.getGiftPrice().subtract(sum));
+        model.addAttribute("sum", sum);
+        model.addAttribute("progress", sum.divide(wish.getGiftPrice(), 4).multiply(BigDecimal.valueOf(100)));
         return "wish_detail";
     }
 
-    @ResponseBody
-    @PostMapping("/donate")
-    public Object donate(HttpServletRequest request, Model model, DonateRecord record) {
-        donateRecordService.save(record);
-        return RestfulApiResponse.buildSuccessResponse(null);
-    }
 }

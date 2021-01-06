@@ -42,5 +42,6 @@ public class DonateRecord implements Serializable {
 
     private LocalDateTime createTime;
 
+    private String message;
 
 }

@@ -3,6 +3,8 @@ package com.donate.wish.mapper;
 import com.donate.wish.entity.DonateRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface DonateRecordMapper extends BaseMapper<DonateRecord> {
 
+    BigDecimal queryDonateAmountSum(Long wishId);
 }

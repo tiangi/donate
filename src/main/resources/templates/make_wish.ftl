@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="/layui-v2.5.7/layui/layui.js"></script>
-    <script src="/jquery-1.7.2.min.js"></script>
+    <script src="/jquery.min.js"></script>
     <link rel="stylesheet" href="/layui-v2.5.7/layui/css/layui.css" media="all">
     <style>
         .layui-upload-img {
@@ -138,8 +138,7 @@
                 if(value.length > 50){
                     return '礼物名称不能超过50个字符';
                 }
-            }
-            ,price: function(value){
+            },price: function(value){
                 if(!/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(value)){
                     return '礼物价格错误';
                 }
