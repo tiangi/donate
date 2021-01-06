@@ -4,7 +4,9 @@ package com.donate.wish.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.donate.common.RestfulApiResponse;
 import com.donate.controller.BaseController;
+import com.donate.wish.entity.DonateRecord;
 import com.donate.wish.entity.Wish;
+import com.donate.wish.service.IDonateRecordService;
 import com.donate.wish.service.IWishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,8 @@ import java.util.Map;
 public class WishController extends BaseController {
     @Autowired
     private IWishService wishService;
+    @Autowired
+    private IDonateRecordService donateRecordService;
 
     @GetMapping("/mine")
     public String getMyWish(HttpServletRequest request, Model model) {
@@ -71,15 +75,32 @@ public class WishController extends BaseController {
     }
 
     @GetMapping("/detail")
-    public String getWish(HttpServletRequest request, Model model, String id) {
+    public String getWish(HttpServletRequest request, Model model, Long id) {
         model.addAttribute("user", getLogonUser(request));
         Wish wish = wishService.getById(id);
         model.addAttribute("wish", wish);
+
+        DonateRecord record = new DonateRecord();
+        record.setWishId(id);
+        QueryWrapper wrapper = new QueryWrapper(record);
+        wrapper.orderByDesc("create_time");
+        List<DonateRecord> records =donateRecordService.list(wrapper);
+        model.addAttribute("records", records);
+
+        Map<String, String> category_map = new HashMap<>();
+        category_map.put("1", "生日");
+        category_map.put("2", "节日");
+        category_map.put("3", "纪念日");
+        category_map.put("4", "重要的人");
+        category_map.put("5", "其他");
+        model.addAttribute("categoryMap", category_map);
         return "wish_detail";
     }
+
     @ResponseBody
     @PostMapping("/donate")
-    public Object donate(HttpServletRequest request, Model model, String id) {
+    public Object donate(HttpServletRequest request, Model model, DonateRecord record) {
+        donateRecordService.save(record);
         return RestfulApiResponse.buildSuccessResponse(null);
     }
 }

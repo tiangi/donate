@@ -3,7 +3,10 @@ package com.donate.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.donate.common.RestfulApiResponse;
 import com.donate.sys.entity.User;
+import com.donate.wish.entity.Wish;
+import com.donate.wish.service.IWishService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -25,9 +29,18 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HomeController extends BaseController {
 
+    @Autowired
+    private IWishService wishService;
+
     @GetMapping("/index")
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("user", getLogonUser(request));
+
+        QueryWrapper wrapper =new QueryWrapper(new Wish());
+        wrapper.orderByDesc("create_time");
+        List<Wish> wishes = wishService.list();
+        model.addAttribute("wishes", wishes);
+
         return "index";
     }
 

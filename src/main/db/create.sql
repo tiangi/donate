@@ -29,3 +29,15 @@ CREATE TABLE `t_wish`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+
+CREATE TABLE `donate`.`t_donate_record`
+(
+    `id`           bigint NOT NULL,
+    `wish_id`      bigint,
+    `relationship` varchar(255) COMMENT '与许愿人关系',
+    `name`         varchar(255) COMMENT '捐赠者姓名',
+    `amount`       double COMMENT '金额',
+    `create_time`  datetime,
+    PRIMARY KEY (`id`)
+);

@@ -24,47 +24,55 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <div style="font-size: 20px;text-align: center;padding: 20px 20px;">许愿详情</div>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr style="height: 40px;">
-                        <td style="padding: 5px 5px;text-align: right; border: 1px solid #CCCCCC;">礼物名称：</td>
-                        <td style="border-top: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;"><a href="${wish.giftUrl}" target="_blank">${wish.giftName!}</a></td>
-                        <td style="padding: 5px 5px;text-align: right;border-top: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;">礼物价格：</td>
-                        <td style="border-top: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;">￥${wish.giftPrice?string('0.##')}</td>
-                        <td style="padding: 5px 5px;text-align: right;border-top: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;">礼物类型：</td>
-                        <td style="border-top: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;">
-                            <#if wish.category=="1">
-                                生日
-                            <#elseif  wish.category=="2">
-                                节日
-                            <#elseif  wish.category=="3">
-                                纪念日
-                            <#elseif  wish.category=="4">
-                                重要的人
-                            <#elseif  wish.category=="5">
-                                其他
-                            </#if>
-                        </td>
-                    </tr>
-                    <tr style="height: 40px;">
-                        <td style="padding: 5px 5px;text-align: right;border-left: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;">礼物描述：</td>
-                        <td colspan="5" style="border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;">${wish.giftDesc!}</td>
-                    </tr>
-                    <tr style="height: 40px;">
-                        <td style="padding: 5px 5px;text-align: right;border-left: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;">索要原因：</td>
-                        <td colspan="5" style="border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;">${wish.reason!}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px 5px;text-align: right;vertical-align: top;border-left: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;">礼物图片：</td>
-                        <td colspan="5" style="border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;"><img id="demo1" src="${wish.giftPicture!}"></td>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr><td>捐赠记录</td></tr>
-                </table>
             <form class="layui-form"  action="" lay-filter="register">
                 <input type="hidden" name="wishId" value="${wish.id!}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">礼物名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="giftName" value="${wish.giftName!}" autocomplete="off" placeholder="礼物名称" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">礼物价格</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="giftPrice" value="${wish.giftPrice?string('0.##')}" autocomplete="off" placeholder="礼物价格" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">礼物描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="giftDesc" value="${wish.giftDesc!}" autocomplete="off" placeholder="礼物描述" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
 
+                <div class="layui-form-item">
+                    <label class="layui-form-label">礼物链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="giftUrl" value="${wish.giftUrl}" autocomplete="off"  placeholder="礼物链接" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">索要原因</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="索要原因" class="layui-textarea" name="reason" disabled="disabled">${wish.reason!}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">礼物类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="category" value="1" title="生日" <#if wish.category=="1">checked="checked"</#if>>
+                        <input type="radio" name="category" value="2" title="节日" <#if wish.category=="2">checked="checked"</#if>>
+                        <input type="radio" name="category" value="3" title="纪念日" <#if wish.category=="3">checked="checked"</#if>>
+                        <input type="radio" name="category" value="4" title="重要的人" <#if wish.category=="4">checked="checked"</#if>>
+                        <input type="radio" name="category" value="5" title="其他" <#if wish.category=="5">checked="checked"</#if>>
+                    </div>
+                </div>
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1" src="${wish.giftPicture!}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">可捐赠金额</label>
                     <div class="layui-input-block">
