@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td style="background-color: #f2f2f2;padding: 5px 5px;text-align: right;vertical-align: top;border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">礼物图片：</td>
-                        <td colspan="5" style="border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;"><img id="demo1" src="${wish.giftPicture!}"></td>
+                        <td colspan="5" style="border-right: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC;padding: 5px 5px;"><img id="demo1" src="${wish.giftPicture!}" style="max-width: 600px;"></td>
                     </tr>
                 </table>
             <#if records??>
